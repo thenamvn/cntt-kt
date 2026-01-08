@@ -1,0 +1,31 @@
+\section{Evaluation Metrics}
+
+Given the highly imbalanced nature of financial fraud datasets (where fraud cases are often $<0.1\%$ of total transactions), standard accuracy is a misleading metric. This research utilizes the following robust metrics for evaluation:
+
+\begin{itemize}
+    \item \textbf{Area Under the Precision-Recall Curve (AUPRC):} The primary metric, as it focuses on the performance of the positive (fraud) class without being biased by the overwhelming number of true negatives.
+    \item \textbf{Recall (Sensitivity):} Critical for banking, as missing a fraud case (False Negative) has high financial liability.
+    \item \textbf{Precision:} Important to minimize customer friction caused by false alarms (False Positives).
+    \item \textbf{F1-Score:} The harmonic mean of standard precision and recall.
+\end{itemize}
+
+\section{Analysis of Non-IID Data Effects}
+
+Banking data is inherently non-IID. Bank A may serve primarily domestic retail customers, while Bank B serves international corporate clients. Their fraud patterns will differ fundamentally. 
+In our evaluation, we anticipate that the global FL model will show improved generalization capabilities. While a local model at Bank A might overfit to "local" fraud types, the FL model creates a regularization effect. By averaging weights trained on diverse distributions, the model learns a more "general" representation of fraud. \cite{li2020federated} suggest that while convergence may be slower on non-IID data compared to IID settings, the final model is often more robust to distribution shifts.
+
+\section{Security and Privacy Discussion}
+
+\subsection{Privacy Leakage Risks}
+Although FL prevents raw data transfer, recent research has shown that model gradients can leak information. Attacks such as Model Inversion or Membership Inference can theoretically reconstruct input data from gradient updates.
+However, in the context of high-dimensional tabular data with large batch sizes (e.g., batch size $> 64$), the risk of reconstructing a specific 64-feature transaction vector is significantly lower than reconstructing an image.
+
+\subsection{Defensive Mechanisms}
+To mitigate these risks, the proposed system is compatible with two key technologies:
+\begin{enumerate}
+    \item \textbf{Secure Aggregation (SecAgg):} As proposed by \cite{bonawitz2017practical}, this protocol allows the server to sum the updates without seeing individual inputs. The server only sees $\sum w_i$, preventing it from isolating a single bank's update to analyze its specific data properties.
+    \item \textbf{Differential Privacy (DP):} Noise can be added to the clipped gradients before uploading. While this introduces a trade-off with model accuracy (utility), it provides a mathematical guarantee of privacy. For fraud detection, where precision is paramount, mild DP guarantees ($\epsilon > 5$) may be acceptable.
+\end{enumerate}
+
+\section{Comparison with Centralized Learning}
+Ideally, centralized learning (pooling all data to one server) provides the upper bound of model performance. However, in our simulated experiments, we expect the FL model to achieve performance close to this centralized baseline (within 2-3\% AUPRC). Crucially, the FL model is expected to significantly outperform isolated local models, proving that collaboration yields tangible security benefits without the legal impossibility of centralization.

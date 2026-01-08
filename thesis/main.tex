@@ -1,0 +1,52 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{natbib}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{caption}
+
+\geometry{left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\title{\textbf{Privacy-Preserving Financial Fraud Detection Using Federated Learning on Non-IID Data}}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Financial fraud detection is a critical challenge for banking institutions, where the sophistication of fraudulent activities is constantly increasing. Traditional centralized machine learning approaches require aggregating sensitive transaction data into a central repository, which raises significant privacy concerns and violates strict data protection regulations. This thesis proposes a Federated Learning (FL) framework utilizing Neural Networks to enabling collaborative fraud detection across multiple banking institutions without sharing raw data. By employing the Federated Averaging (FedAvg) algorithm and a standardized feature engineering schema, the proposed system ensures data privacy while leveraging the collective intelligence of the network. We address key challenges such as non-IID data distribution and communication efficiency. The proposed methodology offers a robust, scalable, and privacy-preserving solution for modern financial security infrastructures.
+\end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter{Introduction}
+\input{chapters/1_introduction}
+
+\chapter{Literature Review}
+\input{chapters/2_literature_review}
+
+\chapter{Methodology}
+\input{chapters/3_methodology}
+
+\chapter{Evaluation and Security Discussion}
+\input{chapters/4_evaluation_security}
+
+\chapter{Conclusion and Future Work}
+\input{chapters/5_conclusion}
+
+\bibliographystyle{plain}
+\renewcommand{\bibname}{REFERENCES}
+\bibliography{references}
+
+\end{document}

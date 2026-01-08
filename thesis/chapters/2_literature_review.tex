@@ -1,0 +1,31 @@
+\section{Federated Learning Theory}
+
+The concept of Federated Learning was formally introduced by \cite{mcmahan2017communication}, who proposed the Federated Averaging (FedAvg) algorithm. This seminal work demonstrated that it is possible to train deep neural networks on decentralized data without determining the raw data to a central location. The authors addressed the key challenge of communication efficiency by performing multiple steps of local stochastic gradient descent (SGD) on each client before averaging the weights at the server.
+
+Building on this, \cite{konecny2016federated} further explored optimized strategies for distributed machine learning, emphasizing the reduction of uplink communication costs through structured updates and sketched updates. \cite{yang2019federated} provided a comprehensive categorization of FL into Horizontal FL, Vertical FL, and Federated Transfer Learning, establishing the standard taxonomy used in the field. They highlighted the applicability of FL in financial risk management, where institutions share overlapping user samples but different feature spaces (Vertical FL) or overlapping feature spaces but different users (Horizontal FL), the latter being the focus of this research for inter-bank collaboration.
+
+\section{Challenges in Federated Learning}
+
+\subsection{Non-IID Data}
+One of the most significant challenges in FL is the statistical heterogeneity of data, often referred to as non-IID (Independent and Identically Distributed) data. \cite{li2020federated} analyzed the convergence of FedAvg in heterogeneous networks and proposed a proximal term to the local objective function (FedProx) to improve stability. In the context of banking, fraud patterns may vary significantly between institutions (e.g., a retail bank vs. an investment bank), making the non-IID assumption critical for robust model design.
+
+\subsection{Privacy and Security}
+While FL offers privacy improvements by keeping raw data local, gradient leakage remains a concern. \cite{bonawitz2017practical} introduced a practical Secure Aggregation protocol using cryptographic techniques to ensure that the server can only inspect the aggregate of the updates, not the individual contributions, thereby preventing the reconstruction of individual user data. \cite{kairouz2021advances} provide an extensive survey of these privacy mechanisms and the trade-offs between privacy (e.g., Differential Privacy) and model utility.
+
+\section{Financial Fraud Detection and Federated Learning}
+
+Traditional fraud detection relies heavily on centralized data mining techniques. \cite{dal2017credit} discusses the challenges of credit card fraud detection, including concept drift and class imbalance, in a realistic centralized setting. In the federated domain, recent studies have begun to apply FL to this problem. However, the literature often focuses on generic credit scoring or simplified fraud scenarios. The application of FL specifically to cross-institution transactional fraud detection, dealing with the intricacies of tabular data and extreme class imbalance without sharing user identifiers, remains an active area of research.
+
+\section{Research Gaps}
+
+Based on the review of existing literature, several key gaps are identified:
+
+\begin{enumerate}
+    \item \textbf{Limited Real-World Banking Deployments:} Most FL research \citep{mcmahan2017communication, li2020federated} focuses on benchmarks like MNIST or CIFAR-10, or mobile device data (e.g., next-word prediction). There is a scarcity of detailed methodologies for deploying FL in the specific regulatory and technical infrastructure of core banking systems.
+    
+    \item \textbf{Non-IID Data Handling in Fraud Detection:} While \cite{li2020federated} address non-IID data theoretically, the specific impact of heterogeneous fraud distributions (e.g., one bank seeing a specific attack vector while others do not) on the global model's false positive rate requires specific investigation using tabular financial data.
+    
+    \item \textbf{Model Preference for Tabular Data:} In centralized fraud detection, tree-based models (Random Forest, GBM) are dominant \citep{dal2017credit}. However, these are difficult to adapt to FL due to the challenge of averaging discrete tree structures. There is a need to rigorously justify and optimize Neural Networks as the primary alternative for FL-based fraud detection to ensure they match the performance expectations of financial institutions.
+    
+    \item \textbf{Standardization in Cross-Silo FL:} The literature often assumes compatible feature spaces. In a practical inter-bank scenario, defining a rigid, privacy-preserving feature engineering schema that aligns disparate raw data schemas remains a practical gap that this thesis aims to address.
+\end{enumerate}

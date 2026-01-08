@@ -1,0 +1,37 @@
+\section{Research Topic}
+
+\subsection{Research Motivation}
+In the rapidly evolving digital finance landscape, the volume of online transactions has surged, accompanied by increasingly sophisticated fraudulent activities. Banking institutions are under immense pressure to detect and prevent financial fraud to protect assets and maintain reputation. Traditional fraud detection systems often operate in silos, where each bank relies solely on its internal data. However, fraud patterns are dynamic and often cross institutional boundaries. While sharing data between banks could significantly enhance detection capabilities, strict data privacy regulations (such as GDPR, CCPA) and competitive confidentiality prevent the direct exchange of raw transaction data. This creates a dilemma: banks need to collaborate to improve security but are legally and practically restricted from doing so.
+
+\subsection{Scientific Novelty}
+This research proposes a Federated Learning (FL) framework specifically designed for the banking sector. Unlike standard FL applications in mobile keyboard prediction, financial fraud detection involves highly imbalanced and non-Independent and Identically Distributed (non-IID) data. This thesis addresses the specific challenge of applying Neural Networks within a Federated Averaging (FedAvg) context to learn global fraud patterns from local, heterogeneous banking data without raw data transmission.
+
+\subsection{Practical Relevance}
+The proposed solution offers a practical architecture that allows banks to benefit from "community knowledge" of fraud vectors without exposing sensitive customer information. This aligns with the strategic needs of modern Fintech infrastructure, balancing high-accuracy security with strict regulatory compliance.
+
+\section{Detailed Research Proposal}
+
+\subsection{Problem Statement}
+Financial institutions face a dual challenge: the need for high-accuracy fraud detection models that require vast amounts of diverse data, and the imperative to comply with data privacy laws that prohibit data sharing. Centralized Machine Learning (ML), which aggregates data into a single server, is no longer feasible due to these privacy and security risks. Consequently, models trained on isolated data (data islands) suffer from poor generalization, especially against new or rare fraud types that have not yet appeared in a specific bank's local dataset but may be prevalent elsewhere.
+
+\subsection{Research Gap}
+Existing literature extensively covers FL for edge computing (e.g., smartphones) but has limited in-depth exploration of FL in cross-silo banking environments where data is highly skewed (imbalanced classes) and follows non-IID distributions. Furthermore, while tree-based models (e.g., Random Forest) are standard in centralized fraud detection, their adaptation to FL is complex and often less efficient than gradient-based methods; however, the explicit justification and optimization of Neural Networks for this specific tabular domain in a federated setting require further investigation.
+
+\subsection{Research Objectives}
+The primary objective is to develop a privacy-preserving fraud detection system using Federated Learning. Specific objectives include:
+\begin{enumerate}
+    \item To design a specialized Neural Network architecture suitable for tabular transaction data in a federated setting.
+    \item To implement a standardized feature engineering schema that ensures vector consistency across different banking entities.
+    \item To evaluate the performance of Federated Averaging (FedAvg) on non-IID financial data compared to local-only training.
+    \item To analyze the privacy implications and ensuring that model updates do not leak sensitive information.
+\end{enumerate}
+
+\subsection{Proposed Methodology}
+The research employs a horizontal Federated Learning approach. A central server coordinates the training process by initializing a global Neural Network model. Participating banks (clients) download this model, train it locally on their private, labeled transaction data (including chargebacks and verified fraud cases), and compute model updates (gradients/weights). These updates are sent back to the server, which aggregates them using the FedAvg algorithm to update the global model. This cycle repeats until convergence.
+
+\subsection{Contributions}
+\textbf{Theoretical Contribution:} This thesis contributes to the understanding of FL convergence on non-IID tabular data, specifically in the context of binary classification with extreme class imbalance.
+\textbf{Practical Contribution:} A deployable framework for inter-bank collaboration is provided, including specific protocols for data standardization and model aggregation that respect privacy boundaries.
+
+\subsection{Privacy and Ethical Considerations}
+The system adheres to "Privacy by Design" principles. Raw data never leaves the local premise. The research also considers the risk of model inversion attacks and discusses the integration of Differential Privacy and Secure Aggregation to mitigate potential inference risks from shared gradients.

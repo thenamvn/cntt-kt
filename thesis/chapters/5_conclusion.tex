@@ -1,0 +1,35 @@
+\section{Conclusion}
+
+This thesis has explored the application of Federated Learning (FL) to the domain of financial fraud detection, addressing the critical conflict between the need for collaborative intelligence and the imperative of data privacy. We proposed a framework utilizing Neural Networks optimized via Federated Averaging (FedAvg), specifically tailored for the non-IID nature of banking transaction data.
+
+\subsection{Summary of Findings}
+Our theoretical analysis and proposed methodology demonstrate that FL is a viable alternative to centralized learning for banking consortiums. 
+\begin{enumerate}
+    \item \textbf{Collaboration without Sharing:} It is possible to mathematically aggregate "fraud knowledge" through the averaging of model weights, allowing banks to protect themselves against new fraud vectors identified by peers.
+    \item \textbf{Model Suitability:} While tree-based models dominate centralized fraud detection, Neural Networks provide the necessary differentiable properties for effective federated aggregation, offering a sufficiently powerful alternative for tabular data when properly architected.
+    \item \textbf{Practical Feasibility:} The requirement for a standardized feature schema is a manageable operational constraint compared to the legal impossibility of sharing raw Personally Identifiable Information (PII).
+\end{enumerate}
+
+\subsection{Final Remarks}
+The proposed system represents a shift in how financial institutions view security—from an isolated defensive posture to a collaborative, privacy-preserving network. By validating the theoretical underpinnings of FedAvg on financial data, this research lays the groundwork for the next generation of Fintech security infrastructure.
+
+\section{Contributions}
+
+This research makes the following key contributions:
+\begin{enumerate}
+    \item \textbf{Contextual Adaptation:} It adapts general FL theory to the specific constraints of the banking sector, including regulatory compliance and feature engineering limitations.
+    \item \textbf{Architectural Justification:} It provides a rigorous argument for the use of Neural Networks over Random Forests in federated tabular settings, challenging the industry status quo for the sake of privacy.
+    \item \textbf{Privacy-Utility Balance:} It outlines a concrete workflow that balances the trade-off between fraud detection accuracy and the risk of gradient leakage.
+\end{enumerate}
+
+\section{Future Research Directions}
+
+To further advance this field, we suggest the following directions for future research:
+
+\begin{enumerate}
+    \item \textbf{Vertical Federated Learning for Banks and Merchants:} Extending the framework to Vertical FL, where a bank (holding transaction data) and an e-commerce platform (holding user browsing behavior) collaborate to detect fraud. The challenge here is linking entities without revealing identities (Private Set Intersection).
+    \item \textbf{Federated Tree-Based Models:} Investigating emerging techniques like Federated Forests or gradient-boosting frameworks (e.g., XGBoost) adapted for FL, to see if they can overcome the aggregation challenges and outperform Neural Networks.
+    \item \textbf{Adaptive Local Epochs:} Developing algorithms where the number of local epochs ($E$) dynamically adjusts based on the client's available computational resources or the "novelty" of its new data, optimizing communication costs.
+    \item \textbf{Personalization Layers:} Implementing a "base + head" architecture where the lower layers of the neural network are shared globally, but the top layers are fine-tuned locally for each bank to capture institution-specific fraud nuances.
+    \item \textbf{Incentive Mechanisms:} researching game-theoretic models to reward banks that contribute high-quality data (i.e., those that identify new fraud patterns) to the federated network, ensuring fair participation in the consortium.
+\end{enumerate}
